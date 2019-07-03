@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div style="width: 100%; height: 100%;">
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <% ['1', '2', '3', '4'].forEach(number => { %> <th> <%= number %> </th> <% }) %>
+        </tr>
+        </thead>
+        <% ['A', 'B', 'C', 'D'].forEach(letter => { %>
+          <tr>
+            <th> <%= letter %> </th>
+            <% ['1', '2', '3', '4'].forEach(number => { %>
+              <td><input type="text" class="cel" placeholder="<%= letter+number %>" /></td>
+            <% }) %>
+          </tr>
+        <% }) %>
+      </table>
+    </div>
+  </body>
+  <script>
+    window.addEventListener('load', () => {
+
+      function cel_exists(position) {
+        return document.querySelector(`.cel[placeholder='${position}']`) !== null;
+      }
+
+      function get_cel(position) {
+        return document.querySelector(`.cel[placeholder='${position}']`);
+      }
+
+      function set_equation_to_cel(position, equation) {
+        get_cel(position).setAttribute('equation', equation);
+        // get_cel(position).removeAttribute('result');
+      }
+
+      function set_result_to_cel(position, result) {
+        get_cel(position).setAttribute('result', result);
+      }
+
+      document.querySelectorAll('.cel').forEach(cel => {
+        let place = cel.getAttribute('placeholder');
+        cel.addEventListener('keyup', () => {
+          let origin_equation = cel.value;
+          let matches;
+          if ((matches = /\=([A-Z0-9\*\-\+\%\/]+)/.exec(origin_equation)) !== null) {
+            matches.shift();
+            let equation = matches[0];
+
+            function get_equations_with_real_values(equation, cmp = 0) {
+              let m;
+              if((m = /([A-Z][0-9])/.exec(equation)) !== null) {
+                let member = m[0];
+                let member_value = cel_exists(member) && get_cel(member).value !== '' ? get_cel(member).value : '0';
+                return get_equations_with_real_values(equation.replace(member, member_value), cmp);
+              }
+              else return equation;
+            }
+
+            equation = get_equations_with_real_values(equation);
+
+            let result;
+            eval(`result = ${equation}`);
+            set_equation_to_cel(place, origin_equation);
+            set_result_to_cel(place, result);
+          }
+        })
+
+        cel.addEventListener('focus', () => {
+          if(cel.hasAttribute('equation')) {
+            cel.value = cel.getAttribute('equation');
+          }
+        })
+
+        cel.addEventListener('blur', () => {
+          if(cel.hasAttribute('equation')) {
+            cel.value = cel.getAttribute('result');
+          }
+        })
+      })
+    })
+  </script>
+</html>
