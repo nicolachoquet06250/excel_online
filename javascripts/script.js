@@ -1,5 +1,8 @@
 window.addEventListener('load', () => {
-	init_excel('excel', 'A1', ['A', 'B', 'C', 'D'], ['1', '2', '3', '4']);
+	window.APPNAME = 'excel';
+	document.querySelector('table').setAttribute('id', APPNAME);
+
+	init_excel(APPNAME, 'A1', ['A', 'B', 'C', 'D'], ['1', '2', '3', '4']);
 
 	document.querySelectorAll('.cel').forEach(cel => {
 		let place = cel.getAttribute('placeholder');
@@ -155,16 +158,17 @@ window.addEventListener('load', () => {
 		}
 	});
 
-	// get_cel('A1').value = '10';
-	// get_cel('A2').value = '20';
-	// get_cel('A3').value = '5';
-	// get_cel('A4').value = '0';
-	//
-	// get_cel('B1').value = '20';
-	// get_cel('C1').value = '5';
-	// get_cel('D1').value = '10';
-	//
-	// console.log(calc_functions().SOMME_COL`A`);
-	// console.log(calc_functions().SOMME_ROW`1`);
-	// console.log(calc_functions().SOMME_VALUES(10, 20, 5, 0));
+	document.querySelectorAll('.add-row').forEach(add_row => {
+		add_row.addEventListener('click', () => {
+			console.log('ajouter une ligne');
+			add_table_row(APPNAME)
+		})
+	});
+
+	document.querySelectorAll('.add-col').forEach(add_col => {
+		add_col.addEventListener('click', () => {
+			console.log('ajouter une colonne');
+			add_table_col(APPNAME)
+		})
+	});
 });
