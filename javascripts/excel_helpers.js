@@ -116,6 +116,11 @@ function init_excel(id_html_table, default_focus, default_horizontal_header, def
 		}
 		document.querySelector('.expression').setAttribute('placeholder', default_focus);
 	});
+
+	// init toolbar
+	document.querySelector('#toolbar').innerHTML = `<button class="add-row">Ajouter une ligne</button>
+<button class="add-col">Ajouter une colonne</button>
+<button class="add-row add-col">Ajouter une ligne et une colonne</button>`;
 }
 
 function get_expression() {

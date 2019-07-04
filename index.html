@@ -2,12 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Excel Online</title>
     <link rel='stylesheet' href='stylesheets/style.css' />
   </head>
   <body>
     <h1>Excel Online</h1>
     <p>Bienvenu sur Excel Online</p>
+    <div id="toolbar"></div>
+    <br>
     <div style="width: 100%; height: 100%;">
       <input type="text" class="expression" />
       <table>
@@ -15,17 +18,6 @@
         <tbody></tbody>
       </table>
     </div>
-    <menu id="add-row-menu" type="context">
-      <menuitem type="command" label="Ajouter une ligne" class="add-row">Ajouter une ligne</menuitem>
-    </menu>
-    <menu id="add-col-menu" type="context">
-      <menuitem type="command" label="Ajouter une colonne" class="add-col">Ajouter une colonne</menuitem>
-    </menu>
-    <menu id="add-col-and-row-menu" type="context">
-      <menuitem type="command" label="Ajouter une ligne" class="add-row">Ajouter une ligne</menuitem>
-      <menuitem type="command" label="Ajouter une colonne" class="add-col">Ajouter une colonne</menuitem>
-      <menuitem type="command" label="Ajouter une colonne et une ligne" class="add-row add-col">Ajouter une colonne et une ligne</menuitem>
-    </menu>
   </body>
   <script src="javascripts/excel_helpers.js"></script>
   <script src="javascripts/script.js"></script>
